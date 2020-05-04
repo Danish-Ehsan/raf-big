@@ -1201,7 +1201,8 @@ a:hover {
     z-index: 10;
     display: flex;
     align-items: center;
-    font-size: 0.9em
+    font-size: 0.9em;
+    overflow: hidden;
 }
 
 .hero__list {
@@ -1212,10 +1213,25 @@ a:hover {
     left: 15%;
 }
 
+.hero__list--even {
+    top: 50px;
+}
+
 .hero__list-item {
+    height: 50px;
     padding-left: 10px;
-    margin-bottom: 25px;
-    transition: opacity 0.35s ease;
+    margin: 25px 0;
+    opacity: 0;
+    transition: all 0.225s linear;
+    pointer-events: none;
+}
+
+.hero__list--transition-ease-in .hero__list-item {
+    transition: all 0.4s cubic-bezier(.79,.29,.8,.65);
+}
+
+.hero__list--transition-ease-out .hero__list-item {
+    transition: all 0.4s cubic-bezier(.29,.82,.62,.84);
 }
 
 .hero__list-link {
@@ -1228,25 +1244,40 @@ a:hover {
     font-size: 1.2em;
     display: inline-block;
     transform-origin: 0% 75%;
-    transition: transform 0.35s ease, color 0.35s ease;
+    transition: transform 0.35s ease;
+}
+
+.hero__list--transition-ease-in .hero__list-title {
+    transition: transform 0.4s cubic-bezier(.79,.29,.8,.65);
+}
+
+.hero__list--transition-ease-out .hero__list-title {
+    transition: transform 0.4s cubic-bezier(.29,.82,.62,.84);
 }
 
 .hero__list-address {
     position: relative;
     bottom: 4px;
-    transition: color 0.35s ease;
 }
 
 .hero__list-item--faded {
     opacity: 0.4;
+    pointer-events: auto;
+}
+
+.hero__list-item--white {
+    color: #fff;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .hero__list-item--active {
     opacity: 1;
     color: #CE0E2D;
+    pointer-events: auto;
 }
 
-.hero__list-item--active * {
+.hero__list-item--active > * {
     color: #CE0E2D;
 }
 
@@ -1313,6 +1344,8 @@ a:hover {
     display: block;
     background-size: cover;
     background-position: 50% 50%;
+	-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+	filter: grayscale(100%);
 }
 
 .featured-secondary__item__image-cont:hover + div a {

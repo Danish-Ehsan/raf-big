@@ -9,6 +9,16 @@ get_header();
             <div class="hero">
             <?php
                 $projects = get_field( 'featured_projects_main' );
+                $projectKeys = array();
+                foreach ($projects as $key => $project) {
+                    //$project['projectIndex'] = $key;
+                    //create a separate array that holds the project keys to be referenced for image sources
+                    $projectKeys[] = $key;
+                }
+                //print_r($projects);
+                //The animation needs at least 7 items to function properly
+                //If there are less than 7 items then duplicate list
+                
                 //get middle list item key
                 $active_key = ceil( (count( $projects ) / 2) - 1 );
                 
@@ -17,30 +27,67 @@ get_header();
                     //Only load the background image of the active project
                     //Save the rest of the featured list image URLs as data attributes to be used with javascript for lazy loading
             ?>
-                <div class="hero__image js--hero-list-image hero__image--active" style="background-image: url('<?php echo get_the_post_thumbnail_url( $post = $project->ID, $size = 'hero-large' ); ?> ');"></div>
+                <div class="hero__image js--hero-list-image hero__image--active" data-key="<?php echo $key ?>" style="background-image: url('<?php echo get_the_post_thumbnail_url( $post = $project->ID, $size = 'hero-large' ); ?> ');"></div>
             <?php else : ?>
-                <div class="hero__image js--hero-list-image" data-image-source="<?php echo get_the_post_thumbnail_url( $post = $project->ID, $size = 'hero-large' ); ?>"></div>
+                <div class="hero__image js--hero-list-image" data-key="<?php echo $key ?>" data-image-source="<?php echo get_the_post_thumbnail_url( $post = $project->ID, $size = 'hero-large' ); ?>"></div>
             <?php
                 endif;
                 endforeach;
+                
+                //The cycleList() animation needs at least 7 items to function properly
+                //If there are less than 7 items then duplicate list
+                //Duplication of full list is required because the list loops forwards and backwards
+                if ( count($projects) < 7 ) {
+                    //$projects = array_values($projects);
+                    $projectsLength = count($projects);
+                    $projectsToPrepend = array();
+                    $projectKeysToPrepend = array();
+                    for ( $i = 0; $i < $projectsLength; $i++ ) {
+                        if ( $i < ( ceil($projectsLength / 2) ) ) {
+                            $projects[] = $projects[$i];
+                            $projectKeys[] = $projectKeys[$i];
+                        } else {
+                            $projectsToPrepend[] = $projects[$i];
+                            $projectKeysToPrepend[] = $projectKeys[$i];
+                            //array_unshift($projects, $projects[$i]);
+                            //array_unshift($projectKeys, $projectKeys[$i]);
+                        }
+                    }
+                    
+                    $projects = array_merge($projectsToPrepend ,$projects);
+                    $projectKeys = array_merge($projectKeysToPrepend, $projectKeys);
+                    $active_key = ceil( (count( $projects ) / 2) - 1 );
+                    
+                    /*
+                    foreach ($projects as $project) {
+                        $projects[] = $project;
+                    }
+                    foreach ($projectKeys as $projectKey) {
+                        $projectKeys[] = $projectKey;
+                    }*/
+                }
             ?>
                     
-                <div class="hero__list-cont">
-                    <ol class="hero__list">
+                <div class="hero__list-cont js--hero-list-cont">
+                    <ol class="hero__list js--hero-list <?php if (!(count($projects) % 2)) { echo 'hero__list--even'; } ?>">
                         
-                    <?php                        
+                    <?php
+                        
+                        
                         foreach ($projects as $key => $project) :
                         
                         //assign classes to middle and outer list items
                         $style_class = '';
                         if ( $key == $active_key ) { 
                             $style_class = 'hero__list-item--active';
-                        } else if ( $key <= $active_key - 2 || $key >= $active_key + 2 ) {
+                        } else if ( $key == $active_key - 1 || $key == $active_key + 1 ) {
+                            $style_class = 'hero__list-item--white';
+                        } else if ( $key == $active_key - 2 || $key == $active_key + 2 ) {
                             $style_class = 'hero__list-item--faded';
                         }
                         
                     ?>
-                    <li class="hero__list-item <?php echo $style_class ?> js--hero-list-item">
+                    <li class="hero__list-item <?php echo $style_class ?> js--hero-list-item" data-key="<?php echo $projectKeys[$key]; ?>">
                         <a href="<?php echo get_post_permalink( $project->ID ); ?>" class="hero__list-link">
                             <span class="hero__list-title"><?php echo $project->post_title ?></span><br>
                             <span class="hero__list-address"><?php echo ( the_field( 'address', $project->ID ) ) ? the_field( 'address', $project->ID ) : '&nbsp;';  ?></span>
@@ -49,7 +96,7 @@ get_header();
                     <?php endforeach; ?>     
                     
                     </ol>
-                </div>
+                </div><!--.hero__list-cont-->
                 <div class="hero__logo">
                     <?php //$logo_url declared in functions.php ?>
                     <img src="<?php echo esc_url( $logo_url[0] ) ?>" alt="<?php echo get_bloginfo( 'name' ); ?>">

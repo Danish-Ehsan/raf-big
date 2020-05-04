@@ -36,7 +36,7 @@
             $cross_icon_src = get_template_directory_uri() . '/images/icon_cross_sm.png';
             ?>
             <div class="nav-primary__logo">
-                <img src="<?php echo esc_url( $logo_url[0] ) ?>" alt="<?php echo get_bloginfo( 'name' ) ?>">
+                <a href="<?php echo get_site_url(); ?>"><img src="<?php echo esc_url( $logo_url[0] ) ?>" alt="<?php echo get_bloginfo( 'name' ) ?>"></a>
             </div>
             <?php
             wp_nav_menu( array(
