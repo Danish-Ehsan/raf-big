@@ -8,6 +8,7 @@
     var animatingList = false;
     var animationCycle = 0;
     var cycleDirection = 'up';
+	var cycleSpeed = 'normal';
     var currentTargetRect, mousePosX, mousePosY;
     var listEventInterval;
     
@@ -77,17 +78,24 @@
     function checkListAnimation() {
         //console.log('checkListAnimationTest');
         //console.log('animatingList= ' + animatingList);
+		if ( (!animatingList && mousePosY <= 180) || (!animatingList && mousePosY >= 520) ) {
+			cycleSpeed = 'fast';
+			console.log('speed = fast');
+		} else {
+			cycleSpeed = 'normal';
+			console.log('speed = normal');
+		}
         if ( !animatingList && mousePosY <= 280 ) {
             cycleDirection = 'down';
-            cycleList( 'down' );
+            cycleList( 'down', cycleSpeed );
         } else if ( !animatingList && mousePosY >= 420 ) {
             cycleDirection = 'up';
-            cycleList( 'up' );
+            cycleList( 'up', cycleSpeed );
         }
     }
     
     
-    function cycleList( direction ) {
+    function cycleList( direction, speed ) {
         var animatingInIndex, animatingOutIndex;
         animatingList = true;
         animationCycle++;
@@ -114,6 +122,12 @@
             updateListItems();
             currentIndex++;
         }
+		
+		if (speed === 'fast') {
+			heroList[0].classList.add('hero__list--transition-speed--fast');
+		} else {
+			heroList[0].classList.remove('hero__list--transition-speed--fast');
+		}
 
         //If the list just started moving or is going to stop make it ease-in or ease-out respectively
         if ( animationCycle === 1 ) {
