@@ -1222,7 +1222,7 @@ a:hover {
     padding-left: 10px;
     margin: 25px 0;
     opacity: 0;
-    transition: all 0.25s linear;
+    transition: all 0.3s linear;
     pointer-events: none;
 }
 
@@ -1792,10 +1792,6 @@ a:hover {
     ### Front Page <= 850px
     -------------------------------------------*/
     
-    .hero {
-        height: 105vh;
-    }
-    
     .hero__image {
         background-position: 50% 50%;
     }
@@ -1907,11 +1903,11 @@ a:hover {
     -------------------------------------------*/
     
     .hero {
-        height: 100vh;
+        height: 650px;;
     }
     
     .hero__logo {
-        width: 125px;
+        width: 105px;
         top: 130px;
         left: 70px;
     }
@@ -1920,11 +1916,12 @@ a:hover {
         width: 100%;
         background-color: rgba( 4, 43, 61, 0.5 );
         display: block;
+		font-size: 0.85em;
     }
     
     .hero__list {
         left: 22px;
-        top: 240px;
+        top: 145px;
         box-sizing: border-box;
         width: 90%;
     }
@@ -1932,6 +1929,10 @@ a:hover {
     .hero__list-item {
         margin-bottom: 16px;
     }
+	
+	.hero__list-item--faded {
+		opacity: 0.6;
+	}
     
     .copy-cont {
         width: 70%;
