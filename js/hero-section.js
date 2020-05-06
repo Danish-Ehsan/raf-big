@@ -167,7 +167,10 @@
         } else if ( !animatingList && mousePosY >= 420 ) {
             cycleDirection = 'up';
             cycleList( 'up', cycleSpeed );
-        } 
+        } else if (!animatingList) {
+			const activeListItem = document.getElementsByClassName( 'hero__list-item--active' );
+			changeFeatured( activeListItem[0].dataset.key );
+		}
     }
     
     
