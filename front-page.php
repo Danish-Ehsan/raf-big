@@ -23,17 +23,18 @@ get_header();
                 $active_key = ceil( (count( $projects ) / 2) - 1 );
                 
                 foreach ($projects as $key => $project) :
+					$project_images = get_field('project_images', $project->ID);
+					
                     if ( $key == $active_key ) :
                     //Only load the background image of the active project
                     //Save the rest of the featured list image URLs as data attributes to be used with javascript for lazy loading
             ?>
-                <div class="hero__image js--hero-list-image hero__image--active" data-key="<?php echo $key ?>" style="background-image: url('<?php echo get_the_post_thumbnail_url( $post = $project->ID, $size = 'hero-large' ); ?> ');"></div>
+                <div class="hero__image js--hero-list-image hero__image--active" data-key="<?php echo $key ?>" style="background-image: url('<?php echo $project_images['featured_image']; ?> ');"></div>
             <?php else : ?>
-                <div class="hero__image js--hero-list-image" data-key="<?php echo $key ?>" data-image-source="<?php echo get_the_post_thumbnail_url( $post = $project->ID, $size = 'hero-large' ); ?>"></div>
+                <div class="hero__image js--hero-list-image" data-key="<?php echo $key ?>" data-image-source="<?php echo $project_images['featured_image']; ?>"></div>
             <?php
                 endif;
                 endforeach;
-                
                 //The cycleList() animation needs at least 7 items to function properly
                 //If there are less than 7 items then duplicate list
                 //Duplication of full list is required because the list loops forwards and backwards
@@ -129,11 +130,14 @@ get_header();
             $projects_secondary = get_field( 'featured_projects_secondary' );
             if ( !empty($projects_secondary) ) :
         ?>
-            <div class="featured-secondary" style="background-image: url('<?php echo get_template_directory_uri() . '/images/background.jpg'; ?>')">
+            <div class="featured-secondary" style="background-image: url('<?php echo get_template_directory_uri() . '/images/floor_plan_small_faded.jpg'; ?>')">
                 <div class="featured-secondary__items-cont">
-                <?php foreach ($projects_secondary as $key => $project) : ?>
+                <?php 
+					foreach ($projects_secondary as $key => $project) : 
+					$project_images = get_field('project_images', $project->ID);
+				?>
                     <div class="featured-secondary__item item-<?php echo $key + 1 ?>">
-                        <a href="<?php echo get_post_permalink( $project->ID ); ?>" class="featured-secondary__item__image-cont" style="background-image: url('<?php the_post_thumbnail_url( $size = 'tall-thumbnail', $post = $project->ID ); ?>')"></a>
+						<a href="<?php echo get_post_permalink( $project->ID ); ?>" class="featured-secondary__item__image-cont" style="background-image: url('<?php if ($project_images['featured_secondary']) { echo $project_images['featured_secondary']; } else { the_post_thumbnail_url( $size = 'tall-thumbnail', $post = $project->ID ); } ?>')"></a>
                         <div class="featured-secondary__item-copy-cont item-<?php echo $key + 1 ?>">
                             <h3 class="featured-secondary__item__title item-<?php echo $key + 1 ?>"><a href="<?php echo get_post_permalink( $project->ID ); ?>"><?php echo $project->post_title ?></a></h3>
                             <span class="featured-secondary__item__address item-<?php echo $key + 1 ?>"><?php echo ( the_field( 'address', $project->ID ) ) ? the_field( 'address', $project->ID ) : '&nbsp;' ; ?></span>

@@ -9,15 +9,21 @@ get_header();
         <?php
             while ( have_posts() ) :
                 the_post();
+				$project_images = get_field('project_images');
+				$gallery_images = $project_images['project_gallery'];
         ?>
             <div class="project-single__carousel owl-carousel owl-theme">
-                <div class="project-single__carousel-image" style="background-image: url('<?php the_post_thumbnail_url( $post = get_the_ID(), $size = 'large' ); ?>');"></div>
-                <?php if( have_rows('project_gallery') ):
-                    while ( have_rows('project_gallery') ) : 
+                <div class="project-single__carousel-image" style="background-image: url('<?php echo $project_images['featured_image']; ?>');"></div>
+                <?php if( have_rows('project_images') ):
+                    while ( have_rows('project_images') ) : 
                         the_row();
+						if ( have_rows('project_gallery') ) :
+							while ( have_rows('project_gallery') ) :
+							the_row();
                 ?>
                 <div class="project-single__carousel-image owl-lazy" data-src="<?php the_sub_field( 'gallery_image' ) ?>"></div>
-                <?php endwhile; endif; ?>
+                <?php
+					endwhile; endif; endwhile; endif; ?>
             </div>
             
             <div class="project-single__copy-cont">

@@ -16,6 +16,7 @@ get_header();
                     /* Start the Loop */
                     while ( have_posts() ) :
                         the_post();
+						$project_images = get_field('project_images');
                 ?>
                     
                     <div class="project-cont">
@@ -25,7 +26,7 @@ get_header();
                             <p class="project__copy-description"><?php echo ( the_field( 'description' ) ) ? get_the_field( 'description' ) : '&nbsp;'; ?></p>
                             <a href="<?php echo get_post_permalink(); ?>" class="project__copy-icon" style="background-image: url('<?php echo get_template_directory_uri() . '/images/icon_arrows-sprite.png' ?>') "></a>
                         </div>
-                        <a href="<?php echo get_post_permalink(); ?>" class="project__image-cont" style="background-image: url('<?php the_post_thumbnail_url( 'wide-medium' ); ?>')"></a>
+                        <a href="<?php echo get_post_permalink(); ?>" class="project__image-cont" style="background-image: url('<?php if ($project_images['featured_secondary']) { echo $project_images['projects_archive']; } else { the_post_thumbnail_url( $size = 'wide-medium' ); } ?>')"></a>
                     </div>
                     
                 <?php

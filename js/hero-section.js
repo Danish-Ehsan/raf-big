@@ -167,7 +167,7 @@
         } else if ( !animatingList && mousePosY >= 420 ) {
             cycleDirection = 'up';
             cycleList( 'up', cycleSpeed );
-        }
+        } 
     }
     
     
