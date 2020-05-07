@@ -237,7 +237,7 @@
 
         //getComputedStyle forces opacity 0 to take effect before changing to opacity 1 to activate transition
         window.getComputedStyle(heroListItems[animatingInIndex]).height;
-        heroListItems[animatingInIndex].setAttribute('style', 'height: 50px; margin: 25px 0');
+        heroListItems[animatingInIndex].setAttribute('style', 'height: 30px; margin: 35px 0');
 
         heroListItems[animatingInIndex].addEventListener(transitionEvent, function(e) {
             if (e.propertyName === 'height') {

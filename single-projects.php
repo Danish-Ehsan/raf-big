@@ -53,12 +53,14 @@ get_header();
                     <span class="project-single__copy-year"><?php echo $year; ?></span>
                 <?php 
                     endif;
-                     $square_footage = get_field( 'square_footage' );
-                    if ( !empty($year) ) :
+                    //$square_footage = get_field( 'square_footage' );
+                    //if ( !empty($year) ) :
                 ?>
+					<!--
                     <span class="project-single__copy-label">Square Footage</span>
-                    <span class="project-single__copy-year"><?php echo $square_footage; ?></span>
-                <?php endif; ?>
+                    <span class="project-single__copy-year"><?php //echo $square_footage; ?></span>
+					-->
+                <?php //endif; ?>
                 </div>
                 <div class="project-single__copy-right-column">
                     <span class="project-single__copy-label"><?php the_title(); ?></span>

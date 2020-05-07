@@ -91,7 +91,7 @@ get_header();
                     <li class="hero__list-item <?php echo $style_class ?> js--hero-list-item" data-key="<?php echo $projectKeys[$key]; ?>">
                         <a href="<?php echo get_post_permalink( $project->ID ); ?>" class="hero__list-link">
                             <span class="hero__list-title"><?php echo $project->post_title ?></span><br>
-                            <span class="hero__list-address"><?php echo ( the_field( 'address', $project->ID ) ) ? the_field( 'address', $project->ID ) : '&nbsp;';  ?></span>
+                            <!--<span class="hero__list-address"><?php echo ( the_field( 'address', $project->ID ) ) ? the_field( 'address', $project->ID ) : '&nbsp;';  ?></span>-->
                         </a>
                     </li>
                     <?php endforeach; ?>     
@@ -113,9 +113,11 @@ get_header();
             <article class="copy-cont" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                 <img class="copy__icon" src="<?php echo get_template_directory_uri() . '/images/icon_line_plus.png'; ?>" alt="branding-icon">
                 <div class="copy__content"><?php the_content(); ?></div>
-                <div class="copy__signature-cont">
+                <!--
+				<div class="copy__signature-cont">
                     <img class="copy__signature" src="<?php echo get_template_directory_uri() . '/images/R+B_signature.png'; ?>" alt="Raf+Big Signature">
                 </div>
+				-->
             </article><!-- #post-<?php the_ID(); ?> -->
 
             <?php endwhile;
@@ -143,7 +145,7 @@ get_header();
                             <span class="featured-secondary__item__address item-<?php echo $key + 1 ?>"><?php echo ( the_field( 'address', $project->ID ) ) ? the_field( 'address', $project->ID ) : '&nbsp;' ; ?></span>
                             <span class="featured-secondary__item__year item-<?php echo $key + 1 ?>"><?php echo  ( the_field( 'year_completed', $project->ID ) ) ? the_field( 'year_completed', $project->ID ) : '&nbsp;'; ?></span>
                             <span class="featured-secondary__item__client item-<?php echo $key + 1 ?>"><?php echo ( the_field( 'client', $project->ID ) ) ? the_field( 'client', $project->ID ) : '&nbsp;'; ?></span>
-                            <span class="featured-secondary__item__square-footage item-<?php echo $key + 1 ?>"><?php echo  ( the_field( 'square_footage', $project->ID ) ) ? the_field( 'square_footage', $project->ID ) : '&nbsp;'; ?></span>
+                            <!--<span class="featured-secondary__item__square-footage item-<?php //echo $key + 1 ?>"><?php //echo  ( the_field( 'square_footage', $project->ID ) ) ? the_field( 'square_footage', $project->ID ) : '&nbsp;'; ?></span>-->
                         </div>
                     </div>
                 <?php endforeach; ?>

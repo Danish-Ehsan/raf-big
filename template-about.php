@@ -23,30 +23,31 @@ get_header();
                 endif;
             ?>
             </div>
-            <div class="about__team-cont">
+			
+<!--            <div class="about__team-cont">
                 <?php 
-                    if( have_rows('team_member_details') ) : 
-                        $section_title = get_field( 'section_title' );
-                        if ( !empty($section_title) ) :
+//                    if( have_rows('team_member_details') ) : 
+//                        $section_title = get_field( 'section_title' );
+//                        if ( !empty($section_title) ) :
                 ?>
                 <h2 class="about__team-section-title"><?php echo $section_title ?></h2>
-                <?php endif; ?>
+                <?php // endif; ?>
                 <div class="about__team-members-cont owl-carousel owl-theme">    
-                <?php while ( have_rows('team_member_details') ) :
+                <?php // while ( have_rows('team_member_details') ) :
                     the_row();
                 ?>
                     <div class="about__team-member__cont">
-                        <div class="about__team-member__photo" style="background-image: url('<?php the_sub_field( 'photo' ); ?>')"></div>
+                        <div class="about__team-member__photo" style="background-image: url('<?php // the_sub_field( 'photo' ); ?>')"></div>
                         <div class="about__team-member__copy-cont">
-                            <h3 class="about__team-member__name"><?php the_sub_field( 'name' ); ?></h3>
-                            <div class="about__team-member__job-title"><?php the_sub_field( 'job_title' ); ?></div>
+                            <h3 class="about__team-member__name"><?php // the_sub_field( 'name' ); ?></h3>
+                            <div class="about__team-member__job-title"><?php // the_sub_field( 'job_title' ); ?></div>
                         </div>
                     </div>
-                <?php endwhile; ?>
+                <?php // endwhile; ?>
                 </div>
-                <img src="<?php echo get_template_directory_uri() . '/images/icon_line_plus.png'; ?>" class="about__team-icon" alt="branding-icon">
-                <?php endif; ?>
-            </div>
+                <img src="<?php // echo get_template_directory_uri() . '/images/icon_line_plus.png'; ?>" class="about__team-icon" alt="branding-icon">
+                <?php // endif; ?>
+            </div>-->
         </main><!-- #main -->
     </div><!-- #primary -->
 
