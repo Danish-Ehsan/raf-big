@@ -1584,8 +1584,8 @@ a:hover {
 .about__copy-cont {
     width: 100%;
     padding: 100px 45% 250px 15%;
-    background-size: 70%;
-    background-position: 100% 20%;
+    background-size: 100%;
+    background-position: center;
     background-repeat: no-repeat;
 }
 

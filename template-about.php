@@ -11,7 +11,7 @@ get_header();
 
     <div id="primary" class="content-area">
         <main id="main" class="site-main">
-            <div class="about__copy-cont" style="background-image: url('<?php echo get_template_directory_uri() . '/images/background2.jpg'; ?>')">
+            <div class="about__copy-cont" style="background-image: url('<?php echo get_template_directory_uri() . '/images/floor_plan_small_faded.jpg'; ?>')">
             <?php 
                 if ( have_posts() ) :
                     while ( have_posts() ) :
