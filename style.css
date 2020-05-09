@@ -1211,6 +1211,7 @@ a:hover {
     margin: 0;
     position: relative;
     left: 15%;
+	list-style-type: none;
 }
 
 .hero__list--even {
@@ -1241,6 +1242,10 @@ a:hover {
 .hero__list-link {
     color: #fff;
     text-decoration: none;
+}
+
+.hero__list-number {
+	padding-right: 10px;
 }
 
 .hero__list-title {

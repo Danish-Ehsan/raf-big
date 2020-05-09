@@ -21,7 +21,23 @@ get_header();
                 
                 //get middle list item key
                 $active_key = ceil( (count( $projects ) / 2) - 1 );
-                
+                $project_numbers = $projectKeys;
+				
+				//Arrange the array so that the first item starts as the middle active item
+				while ($projectKeys[$active_key] != 0) {
+					$last_project = array_pop($projects);
+					array_unshift($projects, $last_project);
+
+					$last_projectKey = array_pop($projectKeys);
+					array_unshift($projectKeys, $last_projectKey);
+				}
+				
+				//Arrange the array numbers so that the visible list number starts at 1
+				while (($project_numbers[$active_key] + 1) != 3) {
+					$last_project_number = array_pop($project_numbers);
+					array_unshift($project_numbers, $last_project_number);
+				}
+				
                 foreach ($projects as $key => $project) :
 					$project_images = get_field('project_images', $project->ID);
 					
@@ -29,27 +45,36 @@ get_header();
                     //Only load the background image of the active project
                     //Save the rest of the featured list image URLs as data attributes to be used with javascript for lazy loading
             ?>
-                <div class="hero__image js--hero-list-image hero__image--active" data-key="<?php echo $key ?>" style="background-image: url('<?php echo $project_images['featured_image']; ?> ');"></div>
+                <div class="hero__image js--hero-list-image hero__image--active" data-key="<?php echo $projectKeys[$key]; ?>" style="background-image: url('<?php echo $project_images['featured_image']; ?> ');"></div>
             <?php else : ?>
-                <div class="hero__image js--hero-list-image" data-key="<?php echo $key ?>" data-image-source="<?php echo $project_images['featured_image']; ?>"></div>
+                <div class="hero__image js--hero-list-image" data-key="<?php echo $projectKeys[$key]; ?>" data-image-source="<?php echo $project_images['featured_image']; ?>"></div>
             <?php
                 endif;
                 endforeach;
+				
+				$projectsLength = count($projects);
+				
+				
+				
                 //The cycleList() animation needs at least 7 items to function properly
                 //If there are less than 7 items then duplicate list
                 //Duplication of full list is required because the list loops forwards and backwards
-                if ( count($projects) < 7 ) {
+				if ( $projectsLength < 7 ) {
                     //$projects = array_values($projects);
-                    $projectsLength = count($projects);
+                    
                     $projectsToPrepend = array();
                     $projectKeysToPrepend = array();
+					$projectNumbersToPrepend = array();
+					
                     for ( $i = 0; $i < $projectsLength; $i++ ) {
                         if ( $i < ( ceil($projectsLength / 2) ) ) {
                             $projects[] = $projects[$i];
                             $projectKeys[] = $projectKeys[$i];
+							$project_numbers[] = $project_numbers[$i];
                         } else {
                             $projectsToPrepend[] = $projects[$i];
                             $projectKeysToPrepend[] = $projectKeys[$i];
+							$projectNumbersToPrepend[] = $project_numbers[$i];
                             //array_unshift($projects, $projects[$i]);
                             //array_unshift($projectKeys, $projectKeys[$i]);
                         }
@@ -57,15 +82,11 @@ get_header();
                     
                     $projects = array_merge($projectsToPrepend ,$projects);
                     $projectKeys = array_merge($projectKeysToPrepend, $projectKeys);
+					$project_numbers = array_merge($projectNumbersToPrepend, $project_numbers);
                     $active_key = ceil( (count( $projects ) / 2) - 1 );
-                    
-                    /*
-                    foreach ($projects as $project) {
-                        $projects[] = $project;
-                    }
-                    foreach ($projectKeys as $projectKey) {
-                        $projectKeys[] = $projectKey;
-                    }*/
+					
+					
+					
                 }
             ?>
                     
@@ -90,8 +111,8 @@ get_header();
                     ?>
                     <li class="hero__list-item <?php echo $style_class ?> js--hero-list-item" data-key="<?php echo $projectKeys[$key]; ?>">
                         <a href="<?php echo get_post_permalink( $project->ID ); ?>" class="hero__list-link">
-                            <span class="hero__list-title"><?php echo $project->post_title ?></span><br>
-                            <!--<span class="hero__list-address"><?php echo ( the_field( 'address', $project->ID ) ) ? the_field( 'address', $project->ID ) : '&nbsp;';  ?></span>-->
+                            <span class="hero__list-number"><?php echo ($project_numbers[$key] + 1) . '.'; ?></span><span class="hero__list-title"><?php echo $project->post_title ?></span><br>
+                            <!--<span class="hero__list-address"><?php //echo ( the_field( 'address', $project->ID ) ) ? the_field( 'address', $project->ID ) : '&nbsp;';  ?></span>-->
                         </a>
                     </li>
                     <?php endforeach; ?>     
